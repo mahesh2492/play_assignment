@@ -42,8 +42,7 @@ class Signup @Inject() extends Controller{
       },
       userData => {
         Logger.info(userData.toString)
-        val currentUser = userForm.bindFromRequest.get
-        val flag = users.map( x=> if(x.uname == currentUser.uname) true else false)
+        val flag = users.map( x=> if(x.uname == userData.uname) true else false)
        if(!flag.contains(false))
          {
            if(userData.password != userData.repassword)
@@ -53,9 +52,10 @@ class Signup @Inject() extends Controller{
              Redirect(routes.Login.showProfile(userData.uname))
            }
          }
-        else
-         Redirect(routes.HomeController.index()).flashing("Already_Exist"->"Username is already taken")
-
+       else {
+         Logger.info("i am already taken")
+         Redirect(routes.HomeController.index()).flashing("Already_Exist" -> "Username is already taken")
+       }
 
 
       }
