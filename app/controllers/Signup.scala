@@ -50,7 +50,7 @@ class Signup @Inject() extends Controller{
              Redirect(routes.HomeController.index()).flashing("PasswordMismatch"->"Pasword dosent match")
            else {
              Operations.addUser(userData)
-             Redirect(routes.Login.showForm())
+             Redirect(routes.Login.showProfile(userData.uname))
            }
          }
         else
