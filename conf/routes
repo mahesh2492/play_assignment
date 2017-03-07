@@ -21,3 +21,5 @@ POST     /addPeople                      controllers.Signup.addPerson
 POST    /showProfile                    controllers.Login.processForm
 
 GET     /profile                    controllers.Login.showProfile(username:String)
+
+POST    /                       controllers.HomeController.index

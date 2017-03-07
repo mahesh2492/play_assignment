@@ -1,19 +1,33 @@
 @(user:Models.User)
 @main() {
+<nav class="navbar navbar-inverse ">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">User Information</a>
+        </div>
+
+
+        <form action="@routes.HomeController.index" method="post">
+            <button class="btn btn-danger navbar-btn navbar-right ">Logout</button>
+        </form>
+        </div>
+</nav>
+
 <br><br>
-<div class="row container" style="text-align:center" >
-    <table class="table">
-        <h>User Information</h>
+
+<div class="row container"  >
+    <table class="table table-bordered" style="text-align:center">
+
         <tbody>
-        <tr>
+        <tr class="success">
             <td>User Name</td>
             <td>@user.uname</td>
-        </tr>
-        <tr>
+        </tr >
+        <tr class="danger">
             <td>First Name</td>
             <td>@user.fname</td>
         </tr>
-        <tr>
+        <tr class="info">
             <td>Middle Name</td>
             <td>@user.mname</td>
         </tr>
@@ -22,7 +36,7 @@
             <td>@user.lname</td>
         </tr>
 
-        <tr >
+        <tr class="warning">
             <td>Mobile</td>
             <td>@user.mobile</td>
         </tr>
@@ -30,9 +44,18 @@
             <td>Gender</td>
             <td>@user.gender</td>
         </tr>
-        <tr>
+        <tr class="active">
             <td>Age</td>
             <td>@user.age</td>
+        </tr>
+        <tr class="success">
+            <td>Gender</td>
+            <td>@user.gender</td>
+        </tr>
+
+        <tr class="info">
+            <td>Hobbies</td>
+            <td>@user.hobbies</td>
         </tr>
 
 
