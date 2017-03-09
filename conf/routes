@@ -23,3 +23,15 @@ POST    /showProfile                    controllers.Login.processForm
 GET     /profile                    controllers.Login.showProfile(username:String)
 
 POST    /                       controllers.HomeController.index
+
+
+POST /showProfile                        controllers.Login.processForm
+
+GET  /profile                            controllers.Login.showProfile(username:String)
+
+GET   /manage                                   controllers.AdminController.manageUsers
+
+GET  /suspend                                   controllers.AdminController.suspend(uname: String)
+
+GET  /resume                                   controllers.AdminController.resume(uname: String)
+

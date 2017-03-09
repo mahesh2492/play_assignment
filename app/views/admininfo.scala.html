@@ -1,16 +1,16 @@
-@(user:Models.User)
+@(user: Models.User)
 @main() {
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">User Profile</a>
+            <a class="navbar-brand" href="#">Admin Profile</a>
         </div>
         <ul class="nav navbar-nav">
+            <li><a href="@routes.AdminController.manageUsers">Manage Users</a></li>
             <li><a href="@routes.HomeController.index">Logout</a></li>
         </ul>
     </div>
 </nav>
-<br><br>
 
 <div class="row text-center" style="margin-top:20px; border-radius:5px;">
     <div class="col-md-3" ></div>

@@ -1,4 +1,4 @@
-
+@()(implicit flash: Flash)
 @*
 * This template takes a single argument, a String containing a
 * message to display.
@@ -20,6 +20,7 @@
             <div class="input-group-btn">
                 <a href="signup.scala.html" class="btn btn-danger" role="button">Sign Up</a>-->
                 <a href="login.scala.html" class="btn btn-info" role="button">Sign In</a>-->
+                @flash.get("BadRequest").getOrElse("")
             </div>
     </form>
 </div>

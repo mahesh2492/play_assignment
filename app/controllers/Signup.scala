@@ -3,12 +3,14 @@ import play.api.Logger
 import javax.inject._
 import Models.{Operations, User}
 import play.api._
+import play.api.cache.CacheApi
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
+import services.CacheTrait
 
 @Singleton
-class Signup @Inject() extends Controller{
+class Signup @Inject()(cache: CacheApi,cacheService: CacheTrait) extends Controller{
 
   val userForm: Form[User] = Form {
     mapping(
@@ -21,15 +23,17 @@ class Signup @Inject() extends Controller{
       "mobile" -> nonEmptyText,
       "gender" ->nonEmptyText,
       "age" -> number(min = 18, max = 75),
-      "hobbies" -> nonEmptyText
+      "hobbies" -> nonEmptyText,
+      "isadmin"  -> boolean,
+      "status" -> boolean
 
     )(User.apply)(User.unapply)
   }
 
 
 
-  def showForm() = Action {
-    Ok(views.html.signup())
+  def showForm() = Action { implicit request =>
+    Ok(views.html.signup()).flashing("a" -> "a")
   }
 
   val users = Operations.getUsers
@@ -42,19 +46,26 @@ class Signup @Inject() extends Controller{
       },
       userData => {
         Logger.info(userData.toString)
-        val flag = users.map( x=> if(x.uname == userData.uname) true else false)
-       if(!flag.contains(false))
+        //val flag = users.map( x=> if(x.uname == userData.uname) true else false)
+        val flag=cacheService.getFromCache(userData.uname)
+       if(flag == None)
          {
            if(userData.password != userData.repassword)
-             Redirect(routes.HomeController.index()).flashing("PasswordMismatch"->"Pasword dosent match")
+             Redirect(routes.Login.showForm()).flashing("PasswordMismatch"->"Pasword dosent match")
            else {
-             Operations.addUser(userData)
+
+             val encrypt = Operations.hash(userData.password)
+             println(encrypt)
+             val encryptedUserdata = userData.copy(password = encrypt)
+             cacheService.addToCache(userData.uname,encryptedUserdata)
+
+             Operations.listOfUsersNames += userData.uname
              Redirect(routes.Login.showProfile(userData.uname))
            }
          }
        else {
          Logger.info("i am already taken")
-         Redirect(routes.HomeController.index()).flashing("Already_Exist" -> "Username is already taken")
+         Redirect(routes.Login.showForm()).flashing("Already_Exist" -> "Username is already taken")
        }
 
 
@@ -64,3 +75,12 @@ class Signup @Inject() extends Controller{
 
 
 }
+
+
+
+
+
+
+
+
+

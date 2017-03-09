@@ -17,8 +17,8 @@ class HomeController @Inject() extends Controller {
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  def index = Action {
-    Ok(views.html.index())
+  def index = Action { implicit request =>
+    Ok(views.html.index()).flashing("a" -> "a")
   }
 
 }

@@ -1,4 +1,4 @@
-
+@()(implicit flash: Flash)
 
 @main() {
 
@@ -13,7 +13,9 @@
         <h2>Sign in to continue</h2>
         <form>
             <div class="form-group">
-                <label for="usr">Username:</label>
+                @flash.get("Status").getOrElse("")
+                @flash.get("msg").getOrElse("")
+                @flash.get("Error Message").getOrElse("")
                 <input type="name" class="form-control" name ="username" id="usr" placeholder="Enter username" required style="width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -22,7 +24,6 @@
     box-sizing: border-box;">
             </div>
             <div class="form-group">
-                <label for="pwd">Password:</label>
                 <input type="password" class="form-control" name ="password" id="pwd" placeholder="Enter password" required style=" width: 100%;
     padding: 12px 20px;
     margin: 8px 0;

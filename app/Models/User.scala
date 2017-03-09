@@ -13,7 +13,9 @@ case class User (
                   mobile:String,
                   gender:String,
                   age:Int,
-                  hobbies:String
+                  hobbies:String,
+                  isadmin:Boolean,
+                  status : Boolean
                 )
 
 object User {

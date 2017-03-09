@@ -1,4 +1,4 @@
-
+@()(implicit flash: Flash)
 
 @main() {
 
@@ -12,8 +12,10 @@
             <input type="text" class="form-control" placeholder="Middlename" name="mname" ><br>
             <input type="text" class="form-control" placeholder="Lastname" name="lname" required><br>
             <input type="text" class="form-control" placeholder="Select Username" name="uname" required><br>
+            @flash.get("Already_Exist").getOrElse("")
             <input type="password" class="form-control" placeholder="Enter Password" name="password" required><br>
             <input type="password" class="form-control" placeholder="Re-Enter Password" name="repassword" required><br>
+            @flash.get("PasswordMismatch").getOrElse("")<br>
             <input type="number" class="form-control" placeholder="Enter Mobile Number" name="mobile" required><br>
 
             <div class="form-group row">
@@ -30,6 +32,21 @@
             </div>
 
         </div>
+
+        <input type="hidden" name="isadmin"
+               @if(play.Play.application().configuration().getString("userType")=="admin"){
+        value=true
+        }
+        else{
+        value=false
+        }>
+        <input type="hidden" name="status"
+               @if(play.Play.application().configuration().getString("status")=="true"){
+        value=true
+        }
+        else{
+        value=false
+        }>
 
 
 
